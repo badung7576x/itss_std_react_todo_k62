@@ -8,7 +8,6 @@ function useFirebaseStorage() {
 　/* 副作用を使う */
   useEffect(() => {
     getItems()
-    console.log(items)
   }, [items])
   
   const getItems = async () => {

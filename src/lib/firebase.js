@@ -9,4 +9,14 @@ const firebaseConfig = {
     appId: "1:583032911419:web:b8ae939e3e3dd376e58e1e"
 }
 
+export const uiConfig = {
+  signInFlow: 'popup',
+  signInSuccessUrl: "/",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  ],
+}
+
 export default firebase.initializeApp(firebaseConfig);
+
+export const auth = firebase.auth()
