@@ -13,13 +13,13 @@ import Input from './Input';
 import Filter from './Filter';
 
 /* カスタムフック */
-import useStorage from '../hooks/storage';
+import useFirebaseStorage from '../hooks/firebase';
 
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
 function Todo() { 
-  const [items, putItems, removeItems] = useStorage()
+  const [items, addItem, updateItem, removeItems] = useFirebaseStorage()
   
   const [tab, setTab] = useState('ALL')
   
@@ -31,19 +31,12 @@ function Todo() {
   
   
   const completeTask = (checkedItem) => {
-    const newItems = items.map(item => {
-      if (item.key == checkedItem.key) {
-        item.done = !item.done;
-      }
-      return item;
-    });
-    
-    putItems(newItems);
+    updateItem(checkedItem);
   }
   
   const addTask = (text) => {
-    const newItems = [...items, {key: getKey(), text: text, done: false}]
-    putItems(newItems)
+    const newItem = {text: text, done: false}
+    addItem(newItem)
   }
   
   const selectTab = value => {
@@ -60,7 +53,7 @@ function Todo() {
         <Filter value={tab} changeTab={selectTab} />
         
         {filteredItems.map(item => (
-          <TodoItem key={item.key} item={item} checkItem={completeTask} />
+          <TodoItem key={item.id} item={item} checkItem={completeTask} />
         ))}
         
         <div className="panel-block">
