@@ -8,7 +8,7 @@ function useFirebaseStorage() {
 　/* 副作用を使う */
   useEffect(() => {
     getItems()
-  }, [items])
+  }, [])
   
   const getItems = async () => {
       const data = await FirebaseService.getAllDocumentsOfCollection('todos')
